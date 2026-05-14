@@ -264,6 +264,17 @@ body {
   gap: 8px;
   color: rgba(220, 236, 255, 0.86);
   font-size: 0.92rem;
+  text-decoration: none;
+  padding: 3px 8px 3px 3px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+}
+
+.navbar-user:hover,
+.navbar-user:focus {
+  color: #ffffff;
+  border-color: rgba(54, 183, 255, 0.28);
+  background: rgba(54, 183, 255, 0.08);
 }
 
 .avatar {
@@ -503,13 +514,37 @@ body {
 }
 
 .library-heading {
-  padding: 26px;
-  border: 1px solid rgba(134, 179, 232, 0.18);
+  position: relative;
+  padding: 34px;
+  border: 1px solid rgba(54, 183, 255, 0.28);
   border-radius: 8px;
   background:
-    linear-gradient(135deg, rgba(9, 26, 48, 0.82), rgba(7, 17, 31, 0.72)),
+    radial-gradient(circle at 84% 18%, rgba(245, 197, 66, 0.12), transparent 24%),
+    linear-gradient(135deg, rgba(10, 35, 65, 0.9), rgba(7, 17, 31, 0.78)),
     repeating-linear-gradient(90deg, rgba(54, 183, 255, 0.08) 0 1px, transparent 1px 68px);
-  box-shadow: 0 20px 56px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 26px 72px rgba(0, 0, 0, 0.28);
+  overflow: hidden;
+}
+
+.library-heading::after {
+  content: "";
+  position: absolute;
+  top: 18px;
+  right: 32px;
+  width: 42px;
+  height: 72px;
+  transform: skewX(-16deg);
+  background: linear-gradient(180deg, transparent, rgba(245, 197, 66, 0.58), rgba(54, 183, 255, 0.28), transparent);
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.library-heading .section-kicker,
+.library-heading h1,
+.library-heading .library-subtitle,
+.library-heading .library-upload-btn {
+  position: relative;
+  z-index: 1;
 }
 
 .library-heading h1,
@@ -529,7 +564,7 @@ body {
   color: #07111f;
   font-weight: 760;
   border: 0;
-  background: linear-gradient(90deg, #f5c542, #36b7ff);
+  background: linear-gradient(90deg, rgba(245, 197, 66, 0.84), rgba(54, 183, 255, 0.84));
 }
 
 .library-upload-btn:hover,
@@ -578,6 +613,9 @@ body {
 .library-page .track-item {
   position: relative;
   overflow: hidden;
+  padding: 12px 14px 12px 18px;
+  gap: 12px;
+  align-items: center;
 }
 
 .library-page .track-item::before {
@@ -588,9 +626,38 @@ body {
   background: linear-gradient(180deg, #f5c542, #36b7ff);
 }
 
+.library-page .track-item::after {
+  content: "";
+  position: absolute;
+  right: 18px;
+  top: 14px;
+  width: 34px;
+  height: 10px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(245, 197, 66, 0.42), rgba(54, 183, 255, 0.34));
+  opacity: 0.55;
+}
+
 .library-page .track-item h2,
 .library-page .empty-state h2 {
   color: #ffffff;
+}
+
+.library-page .track-item h2 {
+  margin-bottom: 4px;
+}
+
+.library-page .track-main p {
+  margin-bottom: 6px;
+}
+
+.library-page .track-item audio {
+  height: 36px;
+  margin-top: 4px;
+}
+
+.library-page .track-actions {
+  gap: 6px;
 }
 
 .library-page .track-main p,

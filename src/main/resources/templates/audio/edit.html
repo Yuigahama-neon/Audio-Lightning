@@ -5,7 +5,7 @@
 <nav th:replace="~{fragments/layout :: navbar}"></nav>
 <main class="container app-main narrow theme-form-main">
     <section class="form-surface theme-form-surface">
-        <p class="section-kicker">Настройка звучания</p>
+        <p class="section-kicker">Настройка звука</p>
         <h1>Редактирование</h1>
         <form th:action="@{/audio/{id}/edit(id=${track.id})}" th:object="${audioUpdateDto}" method="post" class="vstack gap-3">
             <input th:if="${_csrf != null}" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
