@@ -1662,7 +1662,7 @@ body {
   grid-template-columns: 42px minmax(0, 1fr) 38px 128px;
   align-items: center;
   gap: 12px;
-  padding: 10px 12px;
+  padding: 6px 10px;
   border: 1px solid var(--player-line);
   border-radius: 18px;
   background:
@@ -1729,6 +1729,10 @@ body {
 
 .custom-player__content {
   min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
 }
 
 .custom-player__play-icon,
@@ -1996,11 +2000,12 @@ body {
   display: flex;
   align-items: center;
   gap: 5px;
-  margin-top: 6px;
+  margin-top: 0;
   color: var(--player-muted);
   font-size: 0.76rem;
   font-weight: 700;
   letter-spacing: 0;
+  white-space: nowrap;
 }
 
 .custom-player__divider {
@@ -2207,7 +2212,7 @@ body {
   .custom-player.is-enhanced {
     grid-template-columns: 38px minmax(0, 1fr) 34px 108px;
     gap: 10px;
-    padding: 9px 10px;
+    padding: 6px 8px;
   }
 
   .custom-player__control {
