@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Все аудио')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+<main class="container app-main">
+    <div th:replace="~{fragments/layout :: alerts}"></div>
+    <div class="page-heading">
+        <h1>Все аудиозаписи</h1>
+        <a class="btn btn-outline-secondary" th:href="@{/admin}">Назад</a>
+    </div>
+    <div class="table-responsive table-surface">
+        <table class="table align-middle">
+            <thead>
+            <tr>
+                <th>Название</th>
+                <th>Автор</th>
+                <th>Жанр</th>
+                <th>Владелец</th>
+                <th>Дата</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="track : ${tracks}">
+                <td th:text="${track.title}">Название</td>
+                <td th:text="${track.artist ?: '—'}">Автор</td>
+                <td th:text="${track.genre.name}">Жанр</td>
+                <td th:text="${track.owner.username}">user</td>
+                <td th:text="${#temporals.format(track.uploadedAt, 'dd.MM.yyyy HH:mm')}">Дата</td>
+                <td class="text-end">
+                    <form th:action="@{/admin/audio/{id}/delete(id=${track.id})}" method="post"
+                          onsubmit="return confirm('Удалить аудиозапись?')">
+                        <input th:if="${_csrf != null}" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                        <button class="btn btn-sm btn-outline-danger" type="submit">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

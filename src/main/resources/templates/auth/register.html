@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Регистрация')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+<main class="container app-main narrow">
+    <section class="form-surface">
+        <h1>Регистрация</h1>
+        <form th:action="@{/register}" th:object="${userRegisterDto}" method="post" class="vstack gap-3">
+            <input th:if="${_csrf != null}" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <div th:if="${#fields.hasGlobalErrors()}" class="alert alert-danger">
+                <div th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
+            </div>
+            <div>
+                <label class="form-label" for="username">Имя пользователя</label>
+                <input class="form-control" id="username" th:field="*{username}" autocomplete="username">
+                <div class="invalid-feedback d-block" th:errors="*{username}"></div>
+            </div>
+            <div>
+                <label class="form-label" for="email">Email</label>
+                <input class="form-control" id="email" th:field="*{email}" type="email" autocomplete="email">
+                <div class="invalid-feedback d-block" th:errors="*{email}"></div>
+            </div>
+            <div>
+                <label class="form-label" for="password">Пароль</label>
+                <input class="form-control" id="password" th:field="*{password}" type="password" autocomplete="new-password">
+                <div class="invalid-feedback d-block" th:errors="*{password}"></div>
+            </div>
+            <div>
+                <label class="form-label" for="repeatPassword">Повтор пароля</label>
+                <input class="form-control" id="repeatPassword" th:field="*{repeatPassword}" type="password" autocomplete="new-password">
+                <div class="invalid-feedback d-block" th:errors="*{repeatPassword}"></div>
+            </div>
+            <button class="btn btn-primary" type="submit">Создать аккаунт</button>
+        </form>
+        <p class="form-note">Уже есть аккаунт? <a th:href="@{/login}">Войти</a></p>
+    </section>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

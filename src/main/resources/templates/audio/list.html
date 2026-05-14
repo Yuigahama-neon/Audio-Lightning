@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Аудиотека')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+<main class="container app-main">
+    <div th:replace="~{fragments/layout :: alerts}"></div>
+    <div class="page-heading">
+        <div>
+            <p class="section-kicker">Личная коллекция</p>
+            <h1>Аудиотека</h1>
+        </div>
+        <a class="btn btn-primary" th:href="@{/audio/upload}">Загрузить аудио</a>
+    </div>
+
+    <form class="toolbar" th:action="@{/audio}" method="get">
+        <input class="form-control" name="query" th:value="${query}" placeholder="Поиск по названию или автору">
+        <select class="form-select" name="genreId">
+            <option value="">Все жанры</option>
+            <option th:each="genre : ${genres}" th:value="${genre.id}" th:text="${genre.name}"
+                    th:selected="${genreId != null and genre.id == genreId}"></option>
+        </select>
+        <button class="btn btn-outline-primary" type="submit">Найти</button>
+    </form>
+
+    <div th:if="${#lists.isEmpty(tracks)}" class="empty-state">
+        <h2>Пока нет аудиозаписей</h2>
+        <p>Загрузите первый файл, чтобы он появился в вашей медиатеке.</p>
+        <a class="btn btn-primary" th:href="@{/audio/upload}">Загрузить</a>
+    </div>
+
+    <div th:if="${!#lists.isEmpty(tracks)}" class="track-list">
+        <article class="track-item" th:each="track : ${tracks}">
+            <div class="track-main">
+                <h2 th:text="${track.title}">Название</h2>
+                <p>
+                    <span th:text="${track.artist ?: 'Автор не указан'}">Автор</span>
+                    <span class="dot"></span>
+                    <span th:text="${track.genre.name}">Жанр</span>
+                    <span class="dot"></span>
+                    <span th:text="${#temporals.format(track.uploadedAt, 'dd.MM.yyyy HH:mm')}">Дата</span>
+                </p>
+                <audio controls preload="none">
+                    <source th:src="@{/audio/{id}/stream(id=${track.id})}" th:type="${track.mimeType}">
+                    Ваш браузер не поддерживает воспроизведение аудио.
+                </audio>
+            </div>
+            <div class="track-actions">
+                <a class="btn btn-sm btn-outline-secondary" th:href="@{/audio/{id}(id=${track.id})}">Открыть</a>
+                <a class="btn btn-sm btn-outline-primary" th:href="@{/audio/{id}/edit(id=${track.id})}">Править</a>
+                <form th:action="@{/audio/{id}/delete(id=${track.id})}" method="post"
+                      onsubmit="return confirm('Удалить аудиозапись?')">
+                    <input th:if="${_csrf != null}" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                    <button class="btn btn-sm btn-outline-danger" type="submit">Удалить</button>
+                </form>
+            </div>
+        </article>
+    </div>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

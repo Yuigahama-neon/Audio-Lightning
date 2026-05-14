@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Профиль')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+<main class="container app-main">
+    <section class="profile-grid">
+        <div>
+            <p class="section-kicker">Личный кабинет</p>
+            <h1 th:text="${user.username}">Пользователь</h1>
+            <p class="lead" th:text="${user.email}">email</p>
+        </div>
+        <div class="stat-panel">
+            <span>Аудиофайлов</span>
+            <strong th:text="${audioCount}">0</strong>
+        </div>
+    </section>
+    <div class="d-flex flex-wrap gap-2 mt-4">
+        <a class="btn btn-primary" th:href="@{/audio}">Открыть аудиотеку</a>
+        <a class="btn btn-outline-primary" th:href="@{/audio/upload}">Загрузить аудио</a>
+        <form th:action="@{/logout}" method="post">
+            <input th:if="${_csrf != null}" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <button class="btn btn-outline-secondary" type="submit">Выйти</button>
+        </form>
+    </div>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

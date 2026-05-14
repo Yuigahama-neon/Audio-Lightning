@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head('Главная')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+<main class="container app-main">
+    <section class="hero">
+        <div class="hero-copy">
+            <p class="section-kicker">Веб-платформа для аудио</p>
+            <h1>Audio Lightning</h1>
+            <p class="lead">Загружайте аудиофайлы, храните личную медиатеку и воспроизводите записи прямо в браузере.</p>
+            <div class="d-flex flex-wrap gap-2">
+                <a sec:authorize="isAnonymous()" class="btn btn-primary btn-lg" th:href="@{/register}">Создать аккаунт</a>
+                <a sec:authorize="isAnonymous()" class="btn btn-outline-primary btn-lg" th:href="@{/login}">Войти</a>
+                <a sec:authorize="isAuthenticated()" class="btn btn-primary btn-lg" th:href="@{/audio}">Открыть аудиотеку</a>
+            </div>
+        </div>
+        <div class="hero-panel" aria-hidden="true">
+            <div class="wave-row"><span></span><span></span><span></span><span></span><span></span></div>
+            <div class="player-line"></div>
+            <div class="player-meta">
+                <strong>Private mix</strong>
+                <span>03:42</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="feature-grid" aria-label="Возможности">
+        <article>
+            <h2>Загрузка</h2>
+            <p>Поддерживаются MP3, WAV, OGG и M4A до 50 МБ.</p>
+        </article>
+        <article>
+            <h2>Доступ</h2>
+            <p>Каждый пользователь видит и редактирует только свои записи.</p>
+        </article>
+        <article>
+            <h2>Плеер</h2>
+            <p>Прослушивание идёт через защищённый endpoint и HTML5 audio.</p>
+        </article>
+    </section>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

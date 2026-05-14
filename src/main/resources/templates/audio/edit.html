@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Редактирование')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+<main class="container app-main narrow">
+    <section class="form-surface">
+        <h1>Редактирование</h1>
+        <form th:action="@{/audio/{id}/edit(id=${track.id})}" th:object="${audioUpdateDto}" method="post" class="vstack gap-3">
+            <input th:if="${_csrf != null}" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <div th:if="${#fields.hasGlobalErrors()}" class="alert alert-danger">
+                <div th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
+            </div>
+            <div>
+                <label class="form-label" for="title">Название</label>
+                <input class="form-control" id="title" th:field="*{title}">
+                <div class="invalid-feedback d-block" th:errors="*{title}"></div>
+            </div>
+            <div>
+                <label class="form-label" for="artist">Автор</label>
+                <input class="form-control" id="artist" th:field="*{artist}">
+                <div class="invalid-feedback d-block" th:errors="*{artist}"></div>
+            </div>
+            <div>
+                <label class="form-label" for="genreId">Жанр</label>
+                <select class="form-select" id="genreId" th:field="*{genreId}">
+                    <option th:each="genre : ${genres}" th:value="${genre.id}" th:text="${genre.name}"></option>
+                </select>
+                <div class="invalid-feedback d-block" th:errors="*{genreId}"></div>
+            </div>
+            <div>
+                <label class="form-label" for="description">Описание</label>
+                <textarea class="form-control" id="description" rows="4" th:field="*{description}"></textarea>
+                <div class="invalid-feedback d-block" th:errors="*{description}"></div>
+            </div>
+            <div class="d-flex gap-2">
+                <button class="btn btn-primary" type="submit">Сохранить</button>
+                <a class="btn btn-outline-secondary" th:href="@{/audio/{id}(id=${track.id})}">Отмена</a>
+            </div>
+        </form>
+    </section>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${track.title})}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+<main class="container app-main">
+    <div th:replace="~{fragments/layout :: alerts}"></div>
+    <article class="details-layout">
+        <section class="details-primary">
+            <p class="section-kicker" th:text="${track.genre.name}">Жанр</p>
+            <h1 th:text="${track.title}">Название</h1>
+            <p class="lead" th:text="${track.artist ?: 'Автор не указан'}">Автор</p>
+            <audio controls class="wide-player">
+                <source th:src="@{/audio/{id}/stream(id=${track.id})}" th:type="${track.mimeType}">
+                Ваш браузер не поддерживает воспроизведение аудио.
+            </audio>
+            <p class="description" th:text="${track.description ?: 'Описание не добавлено.'}">Описание</p>
+        </section>
+        <aside class="details-meta">
+            <dl>
+                <dt>Загружено</dt>
+                <dd th:text="${#temporals.format(track.uploadedAt, 'dd.MM.yyyy HH:mm')}">Дата</dd>
+                <dt>Размер</dt>
+                <dd th:text="${#numbers.formatDecimal(track.fileSize / 1048576.0, 1, 2)} + ' МБ'">0 МБ</dd>
+                <dt>MIME-type</dt>
+                <dd th:text="${track.mimeType}">audio/mpeg</dd>
+                <dt>Прослушиваний</dt>
+                <dd th:text="${track.playCount}">0</dd>
+            </dl>
+            <div class="d-grid gap-2">
+                <a class="btn btn-primary" th:href="@{/audio/{id}/edit(id=${track.id})}">Редактировать</a>
+                <a class="btn btn-outline-secondary" th:href="@{/audio}">К списку</a>
+            </div>
+        </aside>
+    </article>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

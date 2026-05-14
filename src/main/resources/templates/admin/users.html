@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Пользователи')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+<main class="container app-main">
+    <div th:replace="~{fragments/layout :: alerts}"></div>
+    <div class="page-heading">
+        <h1>Пользователи</h1>
+        <a class="btn btn-outline-secondary" th:href="@{/admin}">Назад</a>
+    </div>
+    <div class="table-responsive table-surface">
+        <table class="table align-middle">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Имя</th>
+                <th>Email</th>
+                <th>Роль</th>
+                <th>Статус</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.id}">1</td>
+                <td th:text="${user.username}">user</td>
+                <td th:text="${user.email}">mail</td>
+                <td th:text="${user.role.name}">ROLE_USER</td>
+                <td>
+                    <span class="badge text-bg-success" th:if="${user.enabled}">активен</span>
+                    <span class="badge text-bg-secondary" th:unless="${user.enabled}">заблокирован</span>
+                </td>
+                <td class="text-end">
+                    <form th:if="${!user.admin}" th:action="@{/admin/users/{id}/block(id=${user.id})}" method="post">
+                        <input th:if="${_csrf != null}" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                        <button class="btn btn-sm btn-outline-danger" type="submit"
+                                th:text="${user.enabled ? 'Блокировать' : 'Разблокировать'}">Блокировать</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

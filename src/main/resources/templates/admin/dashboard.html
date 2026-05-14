@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Админ-панель')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+<main class="container app-main">
+    <div th:replace="~{fragments/layout :: alerts}"></div>
+    <div class="page-heading">
+        <div>
+            <p class="section-kicker">Управление</p>
+            <h1>Админ-панель</h1>
+        </div>
+        <div class="d-flex gap-2">
+            <a class="btn btn-outline-primary" th:href="@{/admin/users}">Пользователи</a>
+            <a class="btn btn-outline-primary" th:href="@{/admin/audio}">Аудио</a>
+        </div>
+    </div>
+    <section class="feature-grid">
+        <article>
+            <h2>Пользователи</h2>
+            <p th:text="${#lists.size(users)} + ' аккаунтов'">0 аккаунтов</p>
+        </article>
+        <article>
+            <h2>Аудиозаписи</h2>
+            <p th:text="${#lists.size(tracks)} + ' файлов'">0 файлов</p>
+        </article>
+    </section>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>
