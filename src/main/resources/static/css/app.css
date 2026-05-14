@@ -258,6 +258,10 @@ body {
   background: #fff;
 }
 
+.home-socials {
+  display: none;
+}
+
 .btn-primary {
   --bs-btn-bg: var(--accent);
   --bs-btn-border-color: var(--accent);
@@ -351,6 +355,62 @@ body {
   color: rgba(238, 246, 255, 0.9);
   background: rgba(7, 17, 31, 0.94);
   border-top: 1px solid rgba(148, 163, 184, 0.16);
+}
+
+.home-page .footer-tech {
+  display: none;
+}
+
+.home-page .home-socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.home-socials a {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  border: 1px solid rgba(220, 236, 255, 0.2);
+  border-radius: 8px;
+  background: rgba(220, 236, 255, 0.06);
+  text-decoration: none;
+}
+
+.home-socials a:hover,
+.home-socials a:focus {
+  color: #ffffff;
+  border-color: rgba(245, 197, 66, 0.55);
+  background: rgba(245, 197, 66, 0.12);
+}
+
+.home-socials svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.home-socials text {
+  fill: currentColor;
+  stroke: none;
+  font-family: Arial, sans-serif;
+}
+
+.home-socials circle:not([r="0.9"]) {
+  fill: none;
+}
+
+.home-socials path:first-child {
+  fill: none;
 }
 
 .home-main {
