@@ -1,27 +1,41 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/layout :: head('Вход')}"></head>
-<body>
+<body class="login-page">
 <nav th:replace="~{fragments/layout :: navbar}"></nav>
-<main class="container app-main narrow">
+<main class="container app-main login-main">
     <div th:replace="~{fragments/layout :: alerts}"></div>
-    <section class="form-surface">
-        <h1>Вход</h1>
-        <div th:if="${param.error}" class="alert alert-danger">Неверный логин или пароль.</div>
-        <div th:if="${param.logout}" class="alert alert-info">Вы вышли из аккаунта.</div>
-        <form th:action="@{/login}" method="post" class="vstack gap-3">
-            <input th:if="${_csrf != null}" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-            <div>
-                <label class="form-label" for="username">Имя пользователя или email</label>
-                <input class="form-control" id="username" name="username" autocomplete="username" required>
+    <section class="login-shell">
+        <div class="login-brand-panel">
+            <div class="bolt-mark" aria-hidden="true"></div>
+            <p class="login-kicker">Audio Lightning</p>
+            <h1>Ваша аудиотека заряжается здесь</h1>
+            <p>Храните записи, слушайте их в браузере и держите личную коллекцию под рукой.</p>
+            <div class="login-equalizer" aria-hidden="true">
+                <span></span><span></span><span></span><span></span><span></span><span></span>
             </div>
-            <div>
-                <label class="form-label" for="password">Пароль</label>
-                <input class="form-control" id="password" name="password" type="password" autocomplete="current-password" required>
-            </div>
-            <button class="btn btn-primary" type="submit">Войти</button>
-        </form>
-        <p class="form-note">Нет аккаунта? <a th:href="@{/register}">Зарегистрироваться</a></p>
+        </div>
+
+        <section class="login-card" aria-labelledby="login-title">
+            <p class="login-kicker">Вход в аккаунт</p>
+            <h2 id="login-title">С возвращением</h2>
+            <p class="login-subtitle">Введите логин или email, чтобы открыть аудиотеку.</p>
+            <div th:if="${param.error}" class="login-alert login-alert-danger">Неверный логин или пароль.</div>
+            <div th:if="${param.logout}" class="login-alert login-alert-info">Вы вышли из аккаунта.</div>
+            <form th:action="@{/login}" method="post" class="vstack gap-3">
+                <input th:if="${_csrf != null}" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                <div>
+                    <label class="form-label" for="username">Имя пользователя или email</label>
+                    <input class="form-control login-input" id="username" name="username" autocomplete="username" required>
+                </div>
+                <div>
+                    <label class="form-label" for="password">Пароль</label>
+                    <input class="form-control login-input" id="password" name="password" type="password" autocomplete="current-password" required>
+                </div>
+                <button class="btn login-submit" type="submit">Войти</button>
+            </form>
+            <p class="login-note">Нет аккаунта? <a th:href="@{/register}">Зарегистрироваться</a></p>
+        </section>
     </section>
 </main>
 <footer th:replace="~{fragments/layout :: footer}"></footer>
