@@ -1,6 +1,7 @@
 package com.example.audioplatform.repository;
 
 import com.example.audioplatform.entity.AudioTrack;
+import com.example.audioplatform.entity.Genre;
 import com.example.audioplatform.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,6 +14,8 @@ public interface AudioTrackRepository extends JpaRepository<AudioTrack, Long> {
     long countByOwner(User owner);
 
     List<AudioTrack> findAllByOrderByUploadedAtDesc();
+
+    List<AudioTrack> findByGenre(Genre genre);
 
     List<AudioTrack> findByOwnerOrderByUploadedAtDesc(User owner);
 

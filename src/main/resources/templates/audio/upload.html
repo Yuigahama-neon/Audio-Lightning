@@ -46,6 +46,15 @@
                 <a class="btn theme-ghost-btn" th:href="@{/audio}">Отмена</a>
             </div>
         </form>
+        <form class="genre-inline-form" th:action="@{/genres}" method="post">
+            <input th:if="${_csrf != null}" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <input type="hidden" name="returnTo" th:value="@{/audio/upload}">
+            <div>
+                <label class="form-label" for="newGenreName">Добавить жанр</label>
+                <input class="form-control" id="newGenreName" name="name" placeholder="Например: Лоу-фай">
+            </div>
+            <button class="btn theme-ghost-btn" type="submit">Добавить</button>
+        </form>
     </section>
 </main>
 <footer th:replace="~{fragments/layout :: footer}"></footer>

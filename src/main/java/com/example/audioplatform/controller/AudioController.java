@@ -3,8 +3,8 @@ package com.example.audioplatform.controller;
 import com.example.audioplatform.dto.AudioUpdateDto;
 import com.example.audioplatform.dto.AudioUploadDto;
 import com.example.audioplatform.entity.AudioTrack;
-import com.example.audioplatform.repository.GenreRepository;
 import com.example.audioplatform.service.AudioService;
+import com.example.audioplatform.service.GenreService;
 import jakarta.validation.Valid;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -28,11 +28,11 @@ import java.security.Principal;
 public class AudioController {
 
     private final AudioService audioService;
-    private final GenreRepository genreRepository;
+    private final GenreService genreService;
 
-    public AudioController(AudioService audioService, GenreRepository genreRepository) {
+    public AudioController(AudioService audioService, GenreService genreService) {
         this.audioService = audioService;
-        this.genreRepository = genreRepository;
+        this.genreService = genreService;
     }
 
     @GetMapping
@@ -41,7 +41,7 @@ public class AudioController {
                        Principal principal,
                        Model model) {
         model.addAttribute("tracks", audioService.findForUser(principal.getName(), query, genreId));
-        model.addAttribute("genres", genreRepository.findAll());
+        model.addAttribute("genres", genreService.findAll());
         model.addAttribute("query", query);
         model.addAttribute("genreId", genreId);
         return "audio/list";
@@ -52,7 +52,7 @@ public class AudioController {
         if (!model.containsAttribute("audioUploadDto")) {
             model.addAttribute("audioUploadDto", new AudioUploadDto());
         }
-        model.addAttribute("genres", genreRepository.findAll());
+        model.addAttribute("genres", genreService.findAll());
         return "audio/upload";
     }
 
@@ -63,7 +63,7 @@ public class AudioController {
                          Model model,
                          RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("genres", genreRepository.findAll());
+            model.addAttribute("genres", genreService.findAll());
             return "audio/upload";
         }
 
@@ -71,7 +71,7 @@ public class AudioController {
             audioService.upload(dto, principal.getName());
         } catch (IllegalArgumentException | IllegalStateException ex) {
             bindingResult.reject("uploadError", ex.getMessage());
-            model.addAttribute("genres", genreRepository.findAll());
+            model.addAttribute("genres", genreService.findAll());
             return "audio/upload";
         }
 
@@ -106,7 +106,7 @@ public class AudioController {
 
         model.addAttribute("track", track);
         model.addAttribute("audioUpdateDto", dto);
-        model.addAttribute("genres", genreRepository.findAll());
+        model.addAttribute("genres", genreService.findAll());
         return "audio/edit";
     }
 
@@ -120,7 +120,7 @@ public class AudioController {
         AudioTrack track = audioService.getAccessibleTrack(id, principal.getName());
         if (bindingResult.hasErrors()) {
             model.addAttribute("track", track);
-            model.addAttribute("genres", genreRepository.findAll());
+            model.addAttribute("genres", genreService.findAll());
             return "audio/edit";
         }
 
@@ -129,7 +129,7 @@ public class AudioController {
         } catch (IllegalArgumentException ex) {
             bindingResult.reject("updateError", ex.getMessage());
             model.addAttribute("track", track);
-            model.addAttribute("genres", genreRepository.findAll());
+            model.addAttribute("genres", genreService.findAll());
             return "audio/edit";
         }
 

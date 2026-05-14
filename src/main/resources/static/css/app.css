@@ -948,6 +948,16 @@ body {
   font-weight: 700;
 }
 
+.genre-inline-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: end;
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(134, 179, 232, 0.16);
+}
+
 .theme-primary-btn {
   color: #07111f;
   font-weight: 760;
@@ -1603,6 +1613,10 @@ body {
   }
 
   .profile-avatar-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .genre-inline-form {
     grid-template-columns: 1fr;
   }
 
