@@ -281,8 +281,70 @@ body {
 }
 
 .home-page .app-navbar {
-  background: rgba(7, 17, 31, 0.94);
-  border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background:
+    linear-gradient(90deg, rgba(7, 17, 31, 0.96), rgba(9, 26, 48, 0.92));
+  border-bottom: 1px solid rgba(54, 183, 255, 0.2);
+  box-shadow: 0 16px 42px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(14px);
+}
+
+.home-page .navbar-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #ffffff;
+}
+
+.home-page .navbar-brand::before {
+  content: "";
+  width: 13px;
+  height: 22px;
+  background: #f5c542;
+  clip-path: polygon(46% 0, 100% 0, 62% 40%, 92% 40%, 28% 100%, 40% 54%, 6% 54%);
+  filter: drop-shadow(0 0 10px rgba(245, 197, 66, 0.52));
+}
+
+.home-page .navbar-dark .navbar-nav .nav-link {
+  color: rgba(220, 236, 255, 0.72);
+}
+
+.home-page .navbar-dark .navbar-nav .nav-link:hover,
+.home-page .navbar-dark .navbar-nav .nav-link:focus {
+  color: #36b7ff;
+}
+
+.home-page .navbar-text {
+  color: rgba(220, 236, 255, 0.8);
+}
+
+.home-page .app-navbar .btn-outline-light {
+  color: #dcecff;
+  border-color: rgba(54, 183, 255, 0.38);
+  background: rgba(54, 183, 255, 0.06);
+}
+
+.home-page .app-navbar .btn-outline-light:hover,
+.home-page .app-navbar .btn-outline-light:focus {
+  color: #07111f;
+  border-color: #36b7ff;
+  background: #36b7ff;
+}
+
+.home-page .app-navbar .btn-light {
+  color: #07111f;
+  border-color: #f5c542;
+  background: #f5c542;
+  font-weight: 700;
+}
+
+.home-page .app-navbar .btn-light:hover,
+.home-page .app-navbar .btn-light:focus {
+  color: #07111f;
+  border-color: #ffd95a;
+  background: #ffd95a;
 }
 
 .home-page .app-footer {
