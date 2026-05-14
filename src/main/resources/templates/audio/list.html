@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/layout :: head('Аудиотека')}"></head>
-<body>
+<body class="library-page">
 <nav th:replace="~{fragments/layout :: navbar}"></nav>
-<main class="container app-main">
+<main class="container app-main library-main">
     <div th:replace="~{fragments/layout :: alerts}"></div>
-    <div class="page-heading">
+    <div class="page-heading library-heading">
         <div>
-            <p class="section-kicker">Личная коллекция</p>
+            <p class="section-kicker">Заряженная коллекция</p>
             <h1>Аудиотека</h1>
+            <p class="library-subtitle">Ваши треки, быстрый поиск и защищённое воспроизведение в одном месте.</p>
         </div>
-        <a class="btn btn-primary" th:href="@{/audio/upload}">Загрузить аудио</a>
+        <a class="btn library-upload-btn" th:href="@{/audio/upload}">Загрузить аудио</a>
     </div>
 
     <form class="toolbar" th:action="@{/audio}" method="get">
@@ -20,13 +21,13 @@
             <option th:each="genre : ${genres}" th:value="${genre.id}" th:text="${genre.name}"
                     th:selected="${genreId != null and genre.id == genreId}"></option>
         </select>
-        <button class="btn btn-outline-primary" type="submit">Найти</button>
+        <button class="btn library-search-btn" type="submit">Найти</button>
     </form>
 
     <div th:if="${#lists.isEmpty(tracks)}" class="empty-state">
         <h2>Пока нет аудиозаписей</h2>
         <p>Загрузите первый файл, чтобы он появился в вашей медиатеке.</p>
-        <a class="btn btn-primary" th:href="@{/audio/upload}">Загрузить</a>
+        <a class="btn library-upload-btn" th:href="@{/audio/upload}">Загрузить</a>
     </div>
 
     <div th:if="${!#lists.isEmpty(tracks)}" class="track-list">
