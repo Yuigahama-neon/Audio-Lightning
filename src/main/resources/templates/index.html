@@ -1,31 +1,50 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="~{fragments/layout :: head('Главная')}"></head>
-<body>
+<body class="home-page">
 <nav th:replace="~{fragments/layout :: navbar}"></nav>
-<main class="container app-main">
-    <section class="hero">
-        <div class="hero-copy">
-            <p class="section-kicker">Веб-платформа для аудио</p>
-            <h1>Audio Lightning</h1>
-            <p class="lead">Загружайте аудиофайлы, храните личную медиатеку и воспроизводите записи прямо в браузере.</p>
-            <div class="d-flex flex-wrap gap-2">
-                <a sec:authorize="isAnonymous()" class="btn btn-primary btn-lg" th:href="@{/register}">Создать аккаунт</a>
-                <a sec:authorize="isAnonymous()" class="btn btn-outline-primary btn-lg" th:href="@{/login}">Войти</a>
-                <a sec:authorize="isAuthenticated()" class="btn btn-primary btn-lg" th:href="@{/audio}">Открыть аудиотеку</a>
+<main class="container app-main home-main">
+    <section class="home-hero">
+        <div class="home-copy">
+            <p class="home-kicker">Audio Lightning</p>
+            <h1>Личная аудиотека с электрическим характером</h1>
+            <p class="lead">Загружайте треки, храните их в защищённой коллекции и запускайте воспроизведение прямо в браузере.</p>
+            <div class="home-actions">
+                <a sec:authorize="isAnonymous()" class="btn home-primary-btn btn-lg" th:href="@{/register}">Создать аккаунт</a>
+                <a sec:authorize="isAnonymous()" class="btn home-ghost-btn btn-lg" th:href="@{/login}">Войти</a>
+                <a sec:authorize="isAuthenticated()" class="btn home-primary-btn btn-lg" th:href="@{/audio}">Открыть аудиотеку</a>
+            </div>
+            <div class="home-metrics" aria-label="Возможности платформы">
+                <div>
+                    <strong>50 МБ</strong>
+                    <span>лимит файла</span>
+                </div>
+                <div>
+                    <strong>4</strong>
+                    <span>аудиоформата</span>
+                </div>
+                <div>
+                    <strong>Private</strong>
+                    <span>доступ по владельцу</span>
+                </div>
             </div>
         </div>
-        <div class="hero-panel" aria-hidden="true">
-            <div class="wave-row"><span></span><span></span><span></span><span></span><span></span></div>
-            <div class="player-line"></div>
-            <div class="player-meta">
-                <strong>Private mix</strong>
-                <span>03:42</span>
+
+        <div class="home-visual" aria-label="Neon из Valorant как визуальный акцент Audio Lightning">
+            <img th:src="@{/img/neon-valorant.avif}" alt="Neon из Valorant">
+            <div class="home-player-card">
+                <div>
+                    <span>Now playing</span>
+                    <strong>Lightning mix</strong>
+                </div>
+                <div class="home-wave" aria-hidden="true">
+                    <span></span><span></span><span></span><span></span><span></span>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="feature-grid" aria-label="Возможности">
+    <section class="home-feature-grid" aria-label="Возможности">
         <article>
             <h2>Загрузка</h2>
             <p>Поддерживаются MP3, WAV, OGG и M4A до 50 МБ.</p>
