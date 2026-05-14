@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/layout :: head(${track.title})}"></head>
-<body>
+<body class="theme-page details-page">
 <nav th:replace="~{fragments/layout :: navbar}"></nav>
-<main class="container app-main">
+<main class="container app-main details-main">
     <div th:replace="~{fragments/layout :: alerts}"></div>
     <article class="details-layout">
         <section class="details-primary">
@@ -28,8 +28,8 @@
                 <dd th:text="${track.playCount}">0</dd>
             </dl>
             <div class="d-grid gap-2">
-                <a class="btn btn-primary" th:href="@{/audio/{id}/edit(id=${track.id})}">Редактировать</a>
-                <a class="btn btn-outline-secondary" th:href="@{/audio}">К списку</a>
+                <a class="btn theme-primary-btn" th:href="@{/audio/{id}/edit(id=${track.id})}">Редактировать</a>
+                <a class="btn theme-ghost-btn" th:href="@{/audio}">К списку</a>
             </div>
         </aside>
     </article>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/layout :: head('Админ-панель')}"></head>
-<body>
+<body class="theme-page admin-page">
 <nav th:replace="~{fragments/layout :: navbar}"></nav>
 <main class="container app-main">
     <div th:replace="~{fragments/layout :: alerts}"></div>
@@ -11,11 +11,11 @@
             <h1>Админ-панель</h1>
         </div>
         <div class="d-flex gap-2">
-            <a class="btn btn-outline-primary" th:href="@{/admin/users}">Пользователи</a>
-            <a class="btn btn-outline-primary" th:href="@{/admin/audio}">Аудио</a>
+            <a class="btn theme-ghost-btn" th:href="@{/admin/users}">Пользователи</a>
+            <a class="btn theme-ghost-btn" th:href="@{/admin/audio}">Аудио</a>
         </div>
     </div>
-    <section class="feature-grid">
+    <section class="feature-grid admin-feature-grid">
         <article>
             <h2>Пользователи</h2>
             <p th:text="${#lists.size(users)} + ' аккаунтов'">0 аккаунтов</p>

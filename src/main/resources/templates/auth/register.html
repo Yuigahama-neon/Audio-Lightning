@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/layout :: head('Регистрация')}"></head>
-<body>
+<body class="theme-page register-page">
 <nav th:replace="~{fragments/layout :: navbar}"></nav>
-<main class="container app-main narrow">
-    <section class="form-surface">
+<main class="container app-main narrow theme-form-main">
+    <section class="form-surface theme-form-surface">
+        <p class="section-kicker">Новый заряд</p>
         <h1>Регистрация</h1>
         <form th:action="@{/register}" th:object="${userRegisterDto}" method="post" class="vstack gap-3">
             <input th:if="${_csrf != null}" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
@@ -31,7 +32,7 @@
                 <input class="form-control" id="repeatPassword" th:field="*{repeatPassword}" type="password" autocomplete="new-password">
                 <div class="invalid-feedback d-block" th:errors="*{repeatPassword}"></div>
             </div>
-            <button class="btn btn-primary" type="submit">Создать аккаунт</button>
+            <button class="btn theme-primary-btn" type="submit">Создать аккаунт</button>
         </form>
         <p class="form-note">Уже есть аккаунт? <a th:href="@{/login}">Войти</a></p>
     </section>

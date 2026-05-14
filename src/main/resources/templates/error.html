@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/layout :: head('Ошибка')}"></head>
-<body>
+<body class="theme-page error-page">
 <nav th:replace="~{fragments/layout :: navbar}"></nav>
-<main class="container app-main narrow">
-    <section class="form-surface text-center">
+<main class="container app-main narrow theme-form-main">
+    <section class="form-surface theme-form-surface text-center">
         <p class="section-kicker" th:text="${status ?: 'Ошибка'}">Ошибка</p>
         <h1>Что-то пошло не так</h1>
         <p class="lead" th:text="${message ?: 'Запрос не удалось обработать.'}">Сообщение</p>
-        <a class="btn btn-primary" th:href="@{/audio}">В аудиотеку</a>
+        <a class="btn theme-primary-btn" th:href="@{/audio}">В аудиотеку</a>
     </section>
 </main>
 <footer th:replace="~{fragments/layout :: footer}"></footer>

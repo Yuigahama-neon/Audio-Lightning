@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/layout :: head('Все аудио')}"></head>
-<body>
+<body class="theme-page admin-page">
 <nav th:replace="~{fragments/layout :: navbar}"></nav>
 <main class="container app-main">
     <div th:replace="~{fragments/layout :: alerts}"></div>
     <div class="page-heading">
         <h1>Все аудиозаписи</h1>
-        <a class="btn btn-outline-secondary" th:href="@{/admin}">Назад</a>
+        <a class="btn theme-ghost-btn" th:href="@{/admin}">Назад</a>
     </div>
     <div class="table-responsive table-surface">
         <table class="table align-middle">
