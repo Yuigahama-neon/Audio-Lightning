@@ -1687,6 +1687,7 @@ body {
   height: 36px;
   display: inline-grid;
   place-items: center;
+  padding: 0;
   border: 1px solid rgba(54, 183, 255, 0.28);
   border-radius: 999px;
   color: #eef6ff;
@@ -1780,15 +1781,80 @@ body {
   grid-column: 3;
   grid-row: 1;
   color: #f8fbff;
-  font-size: 0.72rem;
-  letter-spacing: 0;
 }
 
 .custom-player.is-eq-open .custom-player__eq-toggle,
 .custom-player.is-eq-enabled .custom-player__eq-toggle {
-  color: #07111f;
+  color: #ffffff;
   border-color: transparent;
-  background: linear-gradient(135deg, var(--player-warm), var(--player-accent));
+  background: rgba(54, 183, 255, 0.16);
+}
+
+.custom-player__eq-icon {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  overflow: hidden;
+}
+
+.custom-player__eq-icon span {
+  display: block;
+  flex: 0 0 1.8px;
+  width: 1.8px;
+  border-radius: 999px;
+  background: currentColor;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+.custom-player__eq-icon span:nth-child(1) {
+  display: none;
+}
+
+.custom-player__eq-icon span:nth-child(2) {
+  height: 5px;
+}
+
+.custom-player__eq-icon span:nth-child(3) {
+  height: 8px;
+}
+
+.custom-player__eq-icon span:nth-child(4) {
+  height: 13px;
+}
+
+.custom-player__eq-icon span:nth-child(5) {
+  height: 8px;
+}
+
+.custom-player__eq-icon span:nth-child(6) {
+  height: 15px;
+}
+
+.custom-player__eq-icon span:nth-child(7) {
+  height: 18px;
+}
+
+.custom-player__eq-icon span:nth-child(8) {
+  height: 14px;
+}
+
+.custom-player__eq-icon span:nth-child(9) {
+  height: 10px;
+}
+
+.custom-player__eq-icon span:nth-child(10) {
+  height: 6px;
+}
+
+.custom-player__eq-icon span:nth-child(11) {
+  display: none;
+}
+
+.custom-player__eq-icon span:nth-child(12) {
+  display: none;
 }
 
 .custom-player__mute-icon {
