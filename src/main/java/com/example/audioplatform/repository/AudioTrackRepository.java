@@ -14,16 +14,18 @@ public interface AudioTrackRepository extends JpaRepository<AudioTrack, Long> {
 
     List<AudioTrack> findAllByOrderByUploadedAtDesc();
 
+    List<AudioTrack> findByOwnerOrderByUploadedAtDesc(User owner);
+
+    List<AudioTrack> findByOwnerAndGenreIdOrderByUploadedAtDesc(User owner, Long genreId);
+
     @Query("""
             select a from AudioTrack a
             where a.owner = :owner
-              and (:query is null
-                or lower(a.title) like lower(concat('%', :query, '%'))
-                or lower(a.artist) like lower(concat('%', :query, '%')))
+              and (lower(a.title) like :pattern or lower(a.artist) like :pattern)
               and (:genreId is null or a.genre.id = :genreId)
             order by a.uploadedAt desc
             """)
     List<AudioTrack> searchOwned(@Param("owner") User owner,
-                                 @Param("query") String query,
+                                 @Param("pattern") String pattern,
                                  @Param("genreId") Long genreId);
 }

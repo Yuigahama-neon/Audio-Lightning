@@ -36,7 +36,14 @@ public class AudioService {
     @Transactional(readOnly = true)
     public List<AudioTrack> findForUser(String username, String query, Long genreId) {
         User owner = userService.findByUsernameOrEmail(username);
-        return audioTrackRepository.searchOwned(owner, normalizeQuery(query), genreId);
+        String normalizedQuery = normalizeQuery(query);
+        if (normalizedQuery == null && genreId == null) {
+            return audioTrackRepository.findByOwnerOrderByUploadedAtDesc(owner);
+        }
+        if (normalizedQuery == null) {
+            return audioTrackRepository.findByOwnerAndGenreIdOrderByUploadedAtDesc(owner, genreId);
+        }
+        return audioTrackRepository.searchOwned(owner, "%" + normalizedQuery.toLowerCase() + "%", genreId);
     }
 
     @Transactional(readOnly = true)
