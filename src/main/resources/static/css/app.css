@@ -419,8 +419,8 @@ body {
 
 .home-hero {
   display: grid;
-  grid-template-columns: minmax(0, 0.92fr) minmax(360px, 1.08fr);
-  gap: 30px;
+  grid-template-columns: minmax(0, 0.9fr) minmax(420px, 1.1fr);
+  gap: 56px;
   align-items: center;
   min-height: 610px;
 }
@@ -451,11 +451,11 @@ body {
 }
 
 .home-copy h1 {
-  max-width: 720px;
+  max-width: 680px;
   margin: 0;
   color: #ffffff;
-  font-size: clamp(2.55rem, 5.8vw, 5.1rem);
-  line-height: 0.98;
+  font-size: clamp(2.45rem, 4.7vw, 4.35rem);
+  line-height: 1.03;
   font-weight: 820;
   letter-spacing: 0;
 }
