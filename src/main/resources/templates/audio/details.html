@@ -10,10 +10,7 @@
             <p class="section-kicker" th:text="${track.genre.name}">Жанр</p>
             <h1 th:text="${track.title}">Название</h1>
             <p class="lead" th:text="${track.artist ?: 'Автор не указан'}">Автор</p>
-            <audio controls class="wide-player">
-                <source th:src="@{/audio/{id}/stream(id=${track.id})}" th:type="${track.mimeType}">
-                Ваш браузер не поддерживает воспроизведение аудио.
-            </audio>
+            <div th:replace="~{fragments/audio-player :: player(${track}, 'metadata', 'custom-player--wide')}"></div>
             <p class="description" th:text="${track.description ?: 'Описание не добавлено.'}">Описание</p>
         </section>
         <aside class="details-meta">

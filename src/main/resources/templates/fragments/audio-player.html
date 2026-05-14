@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div
+        th:fragment="player(track, preloadMode, extraClass)"
+        class="custom-player"
+        th:classappend="${extraClass != null ? extraClass : ''}"
+        data-audio-player>
+
+    <audio
+            controls
+            class="custom-player__audio"
+            th:attr="preload=${preloadMode}">
+        <source th:src="@{/audio/{id}/stream(id=${track.id})}" th:type="${track.mimeType}">
+        Ваш браузер не поддерживает воспроизведение аудио.
+    </audio>
+
+    <div class="custom-player__ui" hidden>
+        <button
+                class="custom-player__control custom-player__play"
+                type="button"
+                data-audio-play
+                aria-label="Воспроизвести">
+            <span class="custom-player__play-icon" data-audio-play-icon aria-hidden="true"></span>
+        </button>
+
+        <div class="custom-player__content">
+            <input
+                    class="custom-player__seek"
+                    type="range"
+                    min="0"
+                    max="100"
+                    value="0"
+                    step="0.01"
+                    data-audio-seek
+                    aria-label="Позиция аудиозаписи">
+
+            <div class="custom-player__meta">
+                <span class="custom-player__time" data-audio-current>0:00</span>
+                <span class="custom-player__divider">/</span>
+                <span class="custom-player__time" data-audio-duration>0:00</span>
+            </div>
+        </div>
+
+        <div class="custom-player__volume">
+            <button
+                    class="custom-player__control custom-player__mute"
+                    type="button"
+                    data-audio-mute
+                    aria-label="Отключить звук">
+                <span class="custom-player__mute-icon" data-audio-mute-icon aria-hidden="true"></span>
+            </button>
+            <input
+                    class="custom-player__volume-range"
+                    type="range"
+                    min="0"
+                    max="100"
+                    value="100"
+                    step="1"
+                    data-audio-volume
+                    aria-label="Громкость">
+        </div>
+    </div>
+</div>
+</body>
+</html>
