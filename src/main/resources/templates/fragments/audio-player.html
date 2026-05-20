@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div
+        th:fragment="player(track, preloadMode, extraClass)"
+        class="custom-player"
+        th:classappend="${extraClass != null ? extraClass : ''}"
+        data-audio-player>
+
+    <audio
+            controls
+            class="custom-player__audio"
+            th:attr="preload=${preloadMode}">
+        <source th:src="@{/audio/{id}/stream(id=${track.id})}" th:type="${track.mimeType}">
+        Ваш браузер не поддерживает воспроизведение аудио.
+    </audio>
+
+    <div class="custom-player__ui" hidden>
+        <button
+                class="custom-player__control custom-player__play"
+                type="button"
+                data-audio-play
+                aria-label="Воспроизвести">
+            <span class="custom-player__play-icon" data-audio-play-icon aria-hidden="true"></span>
+        </button>
+
+        <div class="custom-player__content">
+            <input
+                    class="custom-player__seek"
+                    type="range"
+                    min="0"
+                    max="100"
+                    value="0"
+                    step="0.01"
+                    data-audio-seek
+                    aria-label="Позиция аудиозаписи">
+
+            <div class="custom-player__meta">
+                <span class="custom-player__time" data-audio-current>0:00</span>
+                <span class="custom-player__divider">/</span>
+                <span class="custom-player__time" data-audio-duration>0:00</span>
+            </div>
+        </div>
+
+        <div class="custom-player__volume">
+            <button
+                    class="custom-player__control custom-player__mute"
+                    type="button"
+                    data-audio-mute
+                    aria-label="Отключить звук">
+                <span class="custom-player__mute-icon" data-audio-mute-icon aria-hidden="true"></span>
+            </button>
+            <input
+                    class="custom-player__volume-range"
+                    type="range"
+                    min="0"
+                    max="100"
+                    value="100"
+                    step="1"
+                    data-audio-volume
+                    aria-label="Громкость">
+        </div>
+
+        <button
+                class="custom-player__control custom-player__eq-toggle"
+                type="button"
+                data-eq-toggle
+                aria-label="Открыть эквалайзер"
+                aria-expanded="false">
+            <span class="custom-player__eq-icon" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </span>
+        </button>
+
+        <div class="custom-eq" data-eq-panel hidden>
+            <div class="custom-eq__header">
+                <label class="custom-eq__switch">
+                    <input type="checkbox" data-eq-enabled checked>
+                    <span>Эквалайзер</span>
+                </label>
+
+                <select class="custom-eq__preset" data-eq-preset aria-label="Пресет эквалайзера">
+                    <option value="flat">Flat</option>
+                    <option value="bassBoost">Bass Boost</option>
+                    <option value="vocal">Vocal</option>
+                    <option value="rock">Rock</option>
+                    <option value="electronic">Electronic</option>
+                    <option value="soft">Soft</option>
+                    <option value="custom">Custom</option>
+                </select>
+
+                <button type="button" class="custom-eq__reset" data-eq-reset>
+                    Сброс
+                </button>
+            </div>
+
+            <div class="custom-eq__bands">
+                <label class="custom-eq__band">
+                    <span>60 Hz</span>
+                    <input type="range" min="-12" max="12" step="1" value="0" data-eq-band="60">
+                    <output data-eq-output="60">0 dB</output>
+                </label>
+
+                <label class="custom-eq__band">
+                    <span>230 Hz</span>
+                    <input type="range" min="-12" max="12" step="1" value="0" data-eq-band="230">
+                    <output data-eq-output="230">0 dB</output>
+                </label>
+
+                <label class="custom-eq__band">
+                    <span>910 Hz</span>
+                    <input type="range" min="-12" max="12" step="1" value="0" data-eq-band="910">
+                    <output data-eq-output="910">0 dB</output>
+                </label>
+
+                <label class="custom-eq__band">
+                    <span>4 kHz</span>
+                    <input type="range" min="-12" max="12" step="1" value="0" data-eq-band="4000">
+                    <output data-eq-output="4000">0 dB</output>
+                </label>
+
+                <label class="custom-eq__band">
+                    <span>14 kHz</span>
+                    <input type="range" min="-12" max="12" step="1" value="0" data-eq-band="14000">
+                    <output data-eq-output="14000">0 dB</output>
+                </label>
+            </div>
+
+            <p class="custom-eq__message" data-eq-message hidden></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -45,6 +45,13 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private boolean enabled = true;
 
+    private String avatarFileName;
+
+    private String avatarFilePath;
+
+    @Column(length = 120)
+    private String avatarMimeType;
+
     @OneToMany(mappedBy = "owner")
     private List<AudioTrack> audioTracks;
 
@@ -129,6 +136,34 @@ public class User implements UserDetails {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public boolean hasAvatar() {
+        return avatarFilePath != null && !avatarFilePath.isBlank();
+    }
+
+    public String getAvatarFileName() {
+        return avatarFileName;
+    }
+
+    public void setAvatarFileName(String avatarFileName) {
+        this.avatarFileName = avatarFileName;
+    }
+
+    public String getAvatarFilePath() {
+        return avatarFilePath;
+    }
+
+    public void setAvatarFilePath(String avatarFilePath) {
+        this.avatarFilePath = avatarFilePath;
+    }
+
+    public String getAvatarMimeType() {
+        return avatarMimeType;
+    }
+
+    public void setAvatarMimeType(String avatarMimeType) {
+        this.avatarMimeType = avatarMimeType;
     }
 
     public List<AudioTrack> getAudioTracks() {

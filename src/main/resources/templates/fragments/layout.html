@@ -20,9 +20,6 @@
                 <li class="nav-item" sec:authorize="isAuthenticated()">
                     <a class="nav-link" th:href="@{/audio}">Аудиотека</a>
                 </li>
-                <li class="nav-item" sec:authorize="isAuthenticated()">
-                    <a class="nav-link" th:href="@{/profile}">Профиль</a>
-                </li>
                 <li class="nav-item" sec:authorize="hasRole('ADMIN')">
                     <a class="nav-link" th:href="@{/admin}">Админ</a>
                 </li>
@@ -30,9 +27,14 @@
             <div class="d-flex gap-2 align-items-center">
                 <a class="btn btn-outline-light btn-sm" sec:authorize="isAnonymous()" th:href="@{/login}">Войти</a>
                 <a class="btn btn-light btn-sm" sec:authorize="isAnonymous()" th:href="@{/register}">Регистрация</a>
-                <span class="navbar-text small" sec:authorize="isAuthenticated()">
+                <a class="navbar-user" sec:authorize="isAuthenticated()" th:href="@{/profile}" aria-label="Открыть профиль">
+                    <span class="avatar avatar-navbar" th:if="${currentUser != null and currentUser.hasAvatar()}">
+                        <img th:src="@{/profile/avatar}" alt="Аватар">
+                    </span>
+                    <span class="avatar avatar-navbar avatar-fallback" th:unless="${currentUser != null and currentUser.hasAvatar()}"
+                          th:text="${currentUser != null ? #strings.substring(currentUser.username, 0, 1) : '?'}">U</span>
                     <span sec:authentication="name">user</span>
-                </span>
+                </a>
                 <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
                     <input th:if="${_csrf != null}" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                     <button class="btn btn-outline-light btn-sm" type="submit">Выйти</button>
@@ -53,6 +55,7 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script th:src="@{/js/player.js}"></script>
+    <script th:src="@{/js/equalizer.js}"></script>
 </footer>
 </body>
 </html>

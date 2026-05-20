@@ -34,10 +34,7 @@
                     <span class="dot"></span>
                     <span th:text="${#temporals.format(track.uploadedAt, 'dd.MM.yyyy HH:mm')}">Дата</span>
                 </p>
-                <audio controls preload="none">
-                    <source th:src="@{/audio/{id}/stream(id=${track.id})}" th:type="${track.mimeType}">
-                    Ваш браузер не поддерживает воспроизведение аудио.
-                </audio>
+                <div th:replace="~{fragments/audio-player :: player(${track}, 'none', 'custom-player--compact')}"></div>
             </div>
             <div class="track-actions">
                 <a class="btn btn-sm btn-outline-secondary" th:href="@{/audio/{id}(id=${track.id})}">Открыть</a>

@@ -5,6 +5,8 @@ target/
 
 storage/audio/*
 !storage/audio/.gitkeep
+storage/avatars/*
+!storage/avatars/.gitkeep
 
 *.log
 .env

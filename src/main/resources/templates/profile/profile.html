@@ -8,7 +8,8 @@
         <div class="profile-identity">
             <p class="section-kicker">Личный кабинет</p>
             <div class="profile-avatar" aria-hidden="true">
-                <span th:text="${#strings.substring(user.username, 0, 1)}">U</span>
+                <img th:if="${user.hasAvatar()}" th:src="@{/profile/avatar}" alt="">
+                <span th:unless="${user.hasAvatar()}" th:text="${#strings.substring(user.username, 0, 1)}">U</span>
             </div>
             <h1 th:text="${user.username}">Пользователь</h1>
             <p class="lead" th:text="${user.email}">email</p>
@@ -26,6 +27,18 @@
             <button class="btn profile-ghost-btn" type="submit">Выйти</button>
         </form>
     </div>
+    <section class="profile-avatar-panel">
+        <div>
+            <p class="section-kicker">Аватар</p>
+            <h2>Обложка профиля</h2>
+            <p>Загрузите изображение до 2 МБ. Поддерживаются JPG, PNG, WebP и AVIF.</p>
+        </div>
+        <form th:action="@{/profile/avatar}" method="post" enctype="multipart/form-data" class="profile-avatar-form">
+            <input th:if="${_csrf != null}" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <input class="form-control" id="avatar" name="avatar" type="file" accept=".jpg,.jpeg,.png,.webp,.avif,image/*" required>
+            <button class="btn profile-primary-btn" type="submit">Обновить аватарку</button>
+        </form>
+    </section>
 </main>
 <footer th:replace="~{fragments/layout :: footer}"></footer>
 </body>
