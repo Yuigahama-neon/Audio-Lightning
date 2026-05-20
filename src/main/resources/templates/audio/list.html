@@ -16,11 +16,6 @@
 
     <form class="toolbar" th:action="@{/audio}" method="get">
         <input class="form-control" name="query" th:value="${query}" placeholder="Поиск по названию или автору">
-        <select class="form-select" name="genreId">
-            <option value="">Все жанры</option>
-            <option th:each="genre : ${genres}" th:value="${genre.id}" th:text="${genre.name}"
-                    th:selected="${genreId != null and genre.id == genreId}"></option>
-        </select>
         <button class="btn library-search-btn" type="submit">Найти</button>
     </form>
 
@@ -36,8 +31,6 @@
                 <h2 th:text="${track.title}">Название</h2>
                 <p>
                     <span th:text="${track.artist ?: 'Автор не указан'}">Автор</span>
-                    <span class="dot"></span>
-                    <span th:text="${track.genre.name}">Жанр</span>
                     <span class="dot"></span>
                     <span th:text="${#temporals.format(track.uploadedAt, 'dd.MM.yyyy HH:mm')}">Дата</span>
                 </p>

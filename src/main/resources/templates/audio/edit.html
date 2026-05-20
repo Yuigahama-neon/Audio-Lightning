@@ -23,13 +23,6 @@
                 <div class="invalid-feedback d-block" th:errors="*{artist}"></div>
             </div>
             <div>
-                <label class="form-label" for="genreId">Жанр</label>
-                <select class="form-select" id="genreId" th:field="*{genreId}">
-                    <option th:each="genre : ${genres}" th:value="${genre.id}" th:text="${genre.name}"></option>
-                </select>
-                <div class="invalid-feedback d-block" th:errors="*{genreId}"></div>
-            </div>
-            <div>
                 <label class="form-label" for="description">Описание</label>
                 <textarea class="form-control" id="description" rows="4" th:field="*{description}"></textarea>
                 <div class="invalid-feedback d-block" th:errors="*{description}"></div>

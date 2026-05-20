@@ -15,7 +15,6 @@
             <tr>
                 <th>Название</th>
                 <th>Автор</th>
-                <th>Жанр</th>
                 <th>Владелец</th>
                 <th>Дата</th>
                 <th></th>
@@ -25,7 +24,6 @@
             <tr th:each="track : ${tracks}">
                 <td th:text="${track.title}">Название</td>
                 <td th:text="${track.artist ?: '—'}">Автор</td>
-                <td th:text="${track.genre.name}">Жанр</td>
                 <td th:text="${track.owner.username}">user</td>
                 <td th:text="${#temporals.format(track.uploadedAt, 'dd.MM.yyyy HH:mm')}">Дата</td>
                 <td class="text-end">

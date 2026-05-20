@@ -52,10 +52,6 @@ public class AudioTrack {
     @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "genre_id", nullable = false)
-    private Genre genre;
-
     public Long getId() {
         return id;
     }
@@ -142,13 +138,5 @@ public class AudioTrack {
 
     public void setOwner(User owner) {
         this.owner = owner;
-    }
-
-    public Genre getGenre() {
-        return genre;
-    }
-
-    public void setGenre(Genre genre) {
-        this.genre = genre;
     }
 }

@@ -7,7 +7,7 @@
     <div th:replace="~{fragments/layout :: alerts}"></div>
     <article class="details-layout">
         <section class="details-primary">
-            <p class="section-kicker" th:text="${track.genre.name}">Жанр</p>
+            <p class="section-kicker">Audio Lightning</p>
             <h1 th:text="${track.title}">Название</h1>
             <p class="lead" th:text="${track.artist ?: 'Автор не указан'}">Автор</p>
             <audio controls class="wide-player">

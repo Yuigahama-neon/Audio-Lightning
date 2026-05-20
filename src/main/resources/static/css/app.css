@@ -163,7 +163,7 @@ body {
 
 .toolbar {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 220px auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   gap: 12px;
   margin-bottom: 18px;
 }
@@ -256,10 +256,6 @@ body {
   border-top: 1px solid var(--line);
   padding: 24px 0;
   background: #fff;
-}
-
-.home-socials {
-  display: none;
 }
 
 .btn-primary {
@@ -355,62 +351,6 @@ body {
   color: rgba(238, 246, 255, 0.9);
   background: rgba(7, 17, 31, 0.94);
   border-top: 1px solid rgba(148, 163, 184, 0.16);
-}
-
-.home-page .footer-tech {
-  display: none;
-}
-
-.home-page .home-socials {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;
-  justify-content: flex-end;
-}
-
-.home-socials a {
-  width: 34px;
-  height: 34px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: #ffffff;
-  border: 1px solid rgba(220, 236, 255, 0.2);
-  border-radius: 8px;
-  background: rgba(220, 236, 255, 0.06);
-  text-decoration: none;
-}
-
-.home-socials a:hover,
-.home-socials a:focus {
-  color: #ffffff;
-  border-color: rgba(245, 197, 66, 0.55);
-  background: rgba(245, 197, 66, 0.12);
-}
-
-.home-socials svg {
-  width: 20px;
-  height: 20px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.home-socials text {
-  fill: currentColor;
-  stroke: none;
-  font-family: Arial, sans-serif;
-}
-
-.home-socials circle:not([r="0.9"]) {
-  fill: none;
-}
-
-.home-socials path:first-child {
-  fill: none;
 }
 
 .library-page,
@@ -1054,19 +994,6 @@ body {
     linear-gradient(180deg, transparent 0%, rgba(7, 17, 31, 0.7) 100%);
   background-size: 72px 100%, 100% 100%;
   z-index: 1;
-}
-
-.home-visual::after {
-  content: "";
-  position: absolute;
-  top: 10%;
-  right: 12%;
-  width: 90px;
-  height: 150px;
-  transform: skewX(-16deg);
-  background: linear-gradient(180deg, transparent, rgba(245, 197, 66, 0.68), rgba(54, 183, 255, 0.38), transparent);
-  filter: drop-shadow(0 0 22px rgba(245, 197, 66, 0.35));
-  z-index: 2;
 }
 
 .home-visual img {

@@ -3,10 +3,8 @@ package com.example.audioplatform.service;
 import com.example.audioplatform.dto.AudioUpdateDto;
 import com.example.audioplatform.dto.AudioUploadDto;
 import com.example.audioplatform.entity.AudioTrack;
-import com.example.audioplatform.entity.Genre;
 import com.example.audioplatform.entity.User;
 import com.example.audioplatform.repository.AudioTrackRepository;
-import com.example.audioplatform.repository.GenreRepository;
 import org.springframework.core.io.Resource;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
@@ -19,31 +17,25 @@ import java.util.List;
 public class AudioService {
 
     private final AudioTrackRepository audioTrackRepository;
-    private final GenreRepository genreRepository;
     private final UserService userService;
     private final FileStorageService fileStorageService;
 
     public AudioService(AudioTrackRepository audioTrackRepository,
-                        GenreRepository genreRepository,
                         UserService userService,
                         FileStorageService fileStorageService) {
         this.audioTrackRepository = audioTrackRepository;
-        this.genreRepository = genreRepository;
         this.userService = userService;
         this.fileStorageService = fileStorageService;
     }
 
     @Transactional(readOnly = true)
-    public List<AudioTrack> findForUser(String username, String query, Long genreId) {
+    public List<AudioTrack> findForUser(String username, String query) {
         User owner = userService.findByUsernameOrEmail(username);
         String normalizedQuery = normalizeQuery(query);
-        if (normalizedQuery == null && genreId == null) {
+        if (normalizedQuery == null) {
             return audioTrackRepository.findByOwnerOrderByUploadedAtDesc(owner);
         }
-        if (normalizedQuery == null) {
-            return audioTrackRepository.findByOwnerAndGenreIdOrderByUploadedAtDesc(owner, genreId);
-        }
-        return audioTrackRepository.searchOwned(owner, "%" + normalizedQuery.toLowerCase() + "%", genreId);
+        return audioTrackRepository.searchOwned(owner, "%" + normalizedQuery.toLowerCase() + "%");
     }
 
     @Transactional(readOnly = true)
@@ -59,8 +51,6 @@ public class AudioService {
     @Transactional
     public AudioTrack upload(AudioUploadDto dto, String username) {
         User owner = userService.findByUsernameOrEmail(username);
-        Genre genre = genreRepository.findById(dto.getGenreId())
-                .orElseThrow(() -> new IllegalArgumentException("Жанр не найден"));
 
         FileStorageService.StoredFile storedFile = fileStorageService.store(dto.getFile(), owner.getId());
 
@@ -68,7 +58,6 @@ public class AudioService {
         track.setTitle(dto.getTitle().trim());
         track.setArtist(blankToNull(dto.getArtist()));
         track.setDescription(blankToNull(dto.getDescription()));
-        track.setGenre(genre);
         track.setFileName(storedFile.fileName());
         track.setFilePath(storedFile.filePath());
         track.setFileSize(storedFile.fileSize());
@@ -95,13 +84,9 @@ public class AudioService {
                 .orElseThrow(() -> new IllegalArgumentException("Аудиозапись не найдена"));
         assertCanAccess(user, track);
 
-        Genre genre = genreRepository.findById(dto.getGenreId())
-                .orElseThrow(() -> new IllegalArgumentException("Жанр не найден"));
-
         track.setTitle(dto.getTitle().trim());
         track.setArtist(blankToNull(dto.getArtist()));
         track.setDescription(blankToNull(dto.getDescription()));
-        track.setGenre(genre);
         return audioTrackRepository.save(track);
     }
 

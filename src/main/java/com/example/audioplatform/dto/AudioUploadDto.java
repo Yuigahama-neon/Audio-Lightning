@@ -14,9 +14,6 @@ public class AudioUploadDto {
     @Size(max = 160, message = "Имя автора слишком длинное")
     private String artist;
 
-    @NotNull(message = "Выберите жанр")
-    private Long genreId;
-
     @Size(max = 2000, message = "Описание слишком длинное")
     private String description;
 
@@ -37,14 +34,6 @@ public class AudioUploadDto {
 
     public void setArtist(String artist) {
         this.artist = artist;
-    }
-
-    public Long getGenreId() {
-        return genreId;
-    }
-
-    public void setGenreId(Long genreId) {
-        this.genreId = genreId;
     }
 
     public String getDescription() {
