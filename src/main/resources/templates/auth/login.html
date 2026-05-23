@@ -6,18 +6,7 @@
 <main class="container app-main login-main">
     <div th:replace="~{fragments/layout :: alerts}"></div>
     <section class="login-shell">
-        <div class="login-brand-panel">
-            <div class="bolt-mark" aria-hidden="true"></div>
-            <p class="login-kicker">Audio Lightning</p>
-            <h1>Ваша аудиотека заряжается здесь</h1>
-            <p>Храните записи, слушайте их в браузере и держите личную коллекцию под рукой.</p>
-            <div class="login-equalizer" aria-hidden="true">
-                <span></span><span></span><span></span><span></span><span></span><span></span>
-            </div>
-        </div>
-
         <section class="login-card" aria-labelledby="login-title">
-            <p class="login-kicker">Вход в аккаунт</p>
             <h2 id="login-title">С возвращением</h2>
             <p class="login-subtitle">Введите логин или email, чтобы открыть аудиотеку.</p>
             <div th:if="${param.error}" class="login-alert login-alert-danger">Неверный логин или пароль.</div>

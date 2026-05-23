@@ -20,7 +20,7 @@ public class SecurityConfig {
         http
                 .authenticationProvider(authenticationProvider)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/login", "/register", "/error", "/css/**", "/js/**", "/img/**").permitAll()
+                        .requestMatchers("/", "/login", "/register", "/error", "/css/**", "/img/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/audio/**", "/profile").authenticated()
                         .anyRequest().authenticated()

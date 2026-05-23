@@ -10,7 +10,10 @@
             <p class="section-kicker">Audio Lightning</p>
             <h1 th:text="${track.title}">Название</h1>
             <p class="lead" th:text="${track.artist ?: 'Автор не указан'}">Автор</p>
-            <div th:replace="~{fragments/audio-player :: player(${track}, 'metadata', 'custom-player--wide')}"></div>
+            <audio controls class="wide-audio">
+                <source th:src="@{/audio/{id}/stream(id=${track.id})}" th:type="${track.mimeType}">
+                Ваш браузер не поддерживает воспроизведение аудио.
+            </audio>
             <p class="description" th:text="${track.description ?: 'Описание не добавлено.'}">Описание</p>
         </section>
         <aside class="details-meta">
@@ -21,8 +24,6 @@
                 <dd th:text="${#numbers.formatDecimal(track.fileSize / 1048576.0, 1, 2)} + ' МБ'">0 МБ</dd>
                 <dt>MIME-type</dt>
                 <dd th:text="${track.mimeType}">audio/mpeg</dd>
-                <dt>Прослушиваний</dt>
-                <dd th:text="${track.playCount}">0</dd>
             </dl>
             <div class="d-grid gap-2">
                 <a class="btn theme-primary-btn" th:href="@{/audio/{id}/edit(id=${track.id})}">Редактировать</a>

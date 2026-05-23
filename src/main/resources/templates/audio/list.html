@@ -7,7 +7,7 @@
     <div th:replace="~{fragments/layout :: alerts}"></div>
     <div class="page-heading library-heading">
         <div>
-            <p class="section-kicker">Заряженная коллекция</p>
+            <p class="section-kicker">Коллекция</p>
             <h1>Аудиотека</h1>
             <p class="library-subtitle">Ваши треки, быстрый поиск и защищённое воспроизведение в одном месте.</p>
         </div>
@@ -34,7 +34,10 @@
                     <span class="dot"></span>
                     <span th:text="${#temporals.format(track.uploadedAt, 'dd.MM.yyyy HH:mm')}">Дата</span>
                 </p>
-                <div th:replace="~{fragments/audio-player :: player(${track}, 'none', 'custom-player--compact')}"></div>
+                <audio controls preload="none">
+                    <source th:src="@{/audio/{id}/stream(id=${track.id})}" th:type="${track.mimeType}">
+                    Ваш браузер не поддерживает воспроизведение аудио.
+                </audio>
             </div>
             <div class="track-actions">
                 <a class="btn btn-sm btn-outline-secondary" th:href="@{/audio/{id}(id=${track.id})}">Открыть</a>

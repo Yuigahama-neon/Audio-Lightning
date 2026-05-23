@@ -7,7 +7,7 @@
     <section class="home-hero">
         <div class="home-copy">
             <p class="home-kicker">Audio Lightning</p>
-            <h1>Личная аудиотека с молниеносным вайбом</h1>
+            <h1>Личная аудиотека в браузере</h1>
             <p class="lead">Загружайте треки, храните их в защищённой коллекции и запускайте воспроизведение прямо в браузере.</p>
             <div class="home-actions">
                 <a sec:authorize="isAnonymous()" class="btn home-primary-btn btn-lg" th:href="@{/register}">Создать аккаунт</a>
@@ -29,18 +29,8 @@
                 </div>
             </div>
         </div>
-
-        <div class="home-visual" aria-label="Neon из Valorant как визуальный акцент Audio Lightning">
-            <img th:src="@{/img/neon-valorant.avif}" alt="Neon из Valorant">
-            <div class="home-player-card">
-                <div>
-                    <span>Now playing</span>
-                    <strong>Lightning mix</strong>
-                </div>
-                <div class="home-wave" aria-hidden="true">
-                    <span></span><span></span><span></span><span></span><span></span>
-                </div>
-            </div>
+        <div class="home-visual">
+            <img th:src="@{/img/neon-valorant.avif}" alt="Визуальное оформление Audio Lightning">
         </div>
     </section>
 
@@ -54,8 +44,8 @@
             <p>Каждый пользователь видит и редактирует только свои записи.</p>
         </article>
         <article>
-            <h2>Плеер</h2>
-            <p>Прослушивание идёт через защищённый endpoint и HTML5 audio.</p>
+            <h2>Воспроизведение</h2>
+            <p>Аудио открывается через защищённый endpoint и HTML5 audio.</p>
         </article>
     </section>
 </main>

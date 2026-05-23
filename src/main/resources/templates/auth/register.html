@@ -5,7 +5,7 @@
 <nav th:replace="~{fragments/layout :: navbar}"></nav>
 <main class="container app-main narrow theme-form-main">
     <section class="form-surface theme-form-surface">
-        <p class="section-kicker">Новый заряд</p>
+        <p class="section-kicker">Новый аккаунт</p>
         <h1>Регистрация</h1>
         <form th:action="@{/register}" th:object="${userRegisterDto}" method="post" class="vstack gap-3">
             <input th:if="${_csrf != null}" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">

@@ -1,12 +1,14 @@
-target/
+# Maven build output
+/target/
 .idea/
 .vscode/
 *.iml
 
 storage/audio/*
 !storage/audio/.gitkeep
-storage/avatars/*
-!storage/avatars/.gitkeep
+
+data/*.mv.db
+data/*.trace.db
 
 *.log
 .env

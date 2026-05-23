@@ -5,14 +5,12 @@ import com.example.audioplatform.entity.Role;
 import com.example.audioplatform.entity.User;
 import com.example.audioplatform.repository.RoleRepository;
 import com.example.audioplatform.repository.UserRepository;
-import org.springframework.core.io.Resource;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 
@@ -22,16 +20,13 @@ public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
-    private final FileStorageService fileStorageService;
 
     public UserService(UserRepository userRepository,
                        RoleRepository roleRepository,
-                       PasswordEncoder passwordEncoder,
-                       FileStorageService fileStorageService) {
+                       PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
-        this.fileStorageService = fileStorageService;
     }
 
     @Override
@@ -73,32 +68,5 @@ public class UserService implements UserDetailsService {
     public User findByUsernameOrEmail(String usernameOrEmail) {
         return userRepository.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail)
                 .orElseThrow(() -> new UsernameNotFoundException("Пользователь не найден"));
-    }
-
-    @Transactional
-    public User updateAvatar(String usernameOrEmail, MultipartFile avatar) {
-        User user = findByUsernameOrEmail(usernameOrEmail);
-        String previousAvatarPath = user.getAvatarFilePath();
-        FileStorageService.StoredFile storedFile = fileStorageService.storeAvatar(avatar, user.getId());
-
-        user.setAvatarFileName(storedFile.fileName());
-        user.setAvatarFilePath(storedFile.filePath());
-        user.setAvatarMimeType(storedFile.mimeType());
-        User savedUser = userRepository.save(user);
-
-        if (previousAvatarPath != null && !previousAvatarPath.equals(storedFile.filePath())) {
-            fileStorageService.deleteAvatar(previousAvatarPath);
-        }
-
-        return savedUser;
-    }
-
-    @Transactional(readOnly = true)
-    public Resource loadAvatar(String usernameOrEmail) {
-        User user = findByUsernameOrEmail(usernameOrEmail);
-        if (!user.hasAvatar()) {
-            throw new IllegalArgumentException("Аватарка не загружена");
-        }
-        return fileStorageService.loadAvatarAsResource(user.getAvatarFilePath());
     }
 }

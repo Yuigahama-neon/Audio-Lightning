@@ -63,7 +63,6 @@ public class AudioService {
         track.setFileSize(storedFile.fileSize());
         track.setMimeType(storedFile.mimeType());
         track.setUploadedAt(LocalDateTime.now());
-        track.setPlayCount(0);
         track.setOwner(owner);
         return audioTrackRepository.save(track);
     }
@@ -109,8 +108,6 @@ public class AudioService {
         AudioTrack track = audioTrackRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Аудиозапись не найдена"));
         assertCanAccess(user, track);
-        track.setPlayCount(track.getPlayCount() + 1);
-        audioTrackRepository.save(track);
         return fileStorageService.loadAsResource(track.getFilePath());
     }
 

@@ -45,9 +45,6 @@ public class AudioTrack {
     @Column(nullable = false)
     private LocalDateTime uploadedAt;
 
-    @Column(nullable = false)
-    private long playCount;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
@@ -122,14 +119,6 @@ public class AudioTrack {
 
     public void setUploadedAt(LocalDateTime uploadedAt) {
         this.uploadedAt = uploadedAt;
-    }
-
-    public long getPlayCount() {
-        return playCount;
-    }
-
-    public void setPlayCount(long playCount) {
-        this.playCount = playCount;
     }
 
     public User getOwner() {

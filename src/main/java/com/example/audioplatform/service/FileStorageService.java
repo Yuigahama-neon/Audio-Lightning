@@ -22,27 +22,18 @@ import java.util.Set;
 public class FileStorageService {
 
     private static final Set<String> ALLOWED_EXTENSIONS = Set.of("mp3", "wav", "ogg", "m4a");
-    private static final Set<String> ALLOWED_AVATAR_EXTENSIONS = Set.of("jpg", "jpeg", "png", "webp", "avif");
-
     private final Path audioRoot;
-    private final Path avatarRoot;
     private final long maxFileSizeBytes;
-    private final long avatarMaxFileSizeBytes;
 
     public FileStorageService(@Value("${app.storage.audio-path}") String audioPath,
-                              @Value("${app.storage.avatar-path}") String avatarPath,
-                              @Value("${app.storage.max-file-size-bytes}") long maxFileSizeBytes,
-                              @Value("${app.storage.avatar-max-file-size-bytes}") long avatarMaxFileSizeBytes) {
+                              @Value("${app.storage.max-file-size-bytes}") long maxFileSizeBytes) {
         this.audioRoot = Paths.get(audioPath).toAbsolutePath().normalize();
-        this.avatarRoot = Paths.get(avatarPath).toAbsolutePath().normalize();
         this.maxFileSizeBytes = maxFileSizeBytes;
-        this.avatarMaxFileSizeBytes = avatarMaxFileSizeBytes;
     }
 
     @PostConstruct
     public void init() throws IOException {
         Files.createDirectories(audioRoot);
-        Files.createDirectories(avatarRoot);
     }
 
     public StoredFile store(MultipartFile file, Long userId) {
@@ -71,49 +62,15 @@ public class FileStorageService {
         return new StoredFile(storedFileName, destination.toString(), file.getSize(), contentType);
     }
 
-    public StoredFile storeAvatar(MultipartFile file, Long userId) {
-        validateAvatar(file);
-
-        String originalFileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
-        if (originalFileName.contains("..")) {
-            throw new IllegalArgumentException("Недопустимое имя файла");
-        }
-
-        String extension = StringUtils.getFilenameExtension(originalFileName);
-        String storedFileName = "avatar_" + userId + "_" + System.currentTimeMillis() + "." + extension;
-        Path destination = avatarRoot.resolve(storedFileName).normalize();
-
-        if (!destination.startsWith(avatarRoot)) {
-            throw new IllegalArgumentException("Недопустимый путь файла");
-        }
-
-        try {
-            Files.copy(file.getInputStream(), destination, StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException ex) {
-            throw new IllegalStateException("Не удалось сохранить аватарку", ex);
-        }
-
-        String contentType = file.getContentType() == null ? "application/octet-stream" : file.getContentType();
-        return new StoredFile(storedFileName, destination.toString(), file.getSize(), contentType);
-    }
-
     public Resource loadAsResource(String filePath) {
-        return loadAsResource(filePath, audioRoot, "Аудиофайл не найден");
-    }
-
-    public Resource loadAvatarAsResource(String filePath) {
-        return loadAsResource(filePath, avatarRoot, "Аватарка не найдена");
-    }
-
-    private Resource loadAsResource(String filePath, Path root, String notFoundMessage) {
         try {
             Path path = Paths.get(filePath).toAbsolutePath().normalize();
-            if (!path.startsWith(root)) {
+            if (!path.startsWith(audioRoot)) {
                 throw new IllegalArgumentException("Недопустимый путь файла");
             }
             Resource resource = new UrlResource(path.toUri());
             if (!resource.exists() || !resource.isReadable()) {
-                throw new IllegalArgumentException(notFoundMessage);
+                throw new IllegalArgumentException("Аудиофайл не найден");
             }
             return resource;
         } catch (MalformedURLException ex) {
@@ -122,43 +79,16 @@ public class FileStorageService {
     }
 
     public void delete(String filePath) {
-        delete(filePath, audioRoot);
-    }
-
-    public void deleteAvatar(String filePath) {
-        delete(filePath, avatarRoot);
-    }
-
-    private void delete(String filePath, Path root) {
         if (filePath == null || filePath.isBlank()) {
             return;
         }
         try {
             Path path = Paths.get(filePath).toAbsolutePath().normalize();
-            if (path.startsWith(root)) {
+            if (path.startsWith(audioRoot)) {
                 Files.deleteIfExists(path);
             }
         } catch (IOException ex) {
             throw new IllegalStateException("Не удалось удалить файл", ex);
-        }
-    }
-
-    private void validateAvatar(MultipartFile file) {
-        if (file == null || file.isEmpty()) {
-            throw new IllegalArgumentException("Выберите непустой файл аватарки");
-        }
-        if (file.getSize() > avatarMaxFileSizeBytes) {
-            throw new IllegalArgumentException("Размер аватарки не должен превышать 2 МБ");
-        }
-
-        String originalFileName = file.getOriginalFilename();
-        if (originalFileName == null || originalFileName.isBlank()) {
-            throw new IllegalArgumentException("Имя файла не определено");
-        }
-
-        String extension = StringUtils.getFilenameExtension(originalFileName);
-        if (extension == null || !ALLOWED_AVATAR_EXTENSIONS.contains(extension.toLowerCase(Locale.ROOT))) {
-            throw new IllegalArgumentException("Допустимые форматы аватарки: .jpg, .jpeg, .png, .webp, .avif");
         }
     }
 
