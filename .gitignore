@@ -5,7 +5,6 @@
 *.iml
 
 storage/audio/*
-!storage/audio/.gitkeep
 
 data/*.mv.db
 data/*.trace.db
